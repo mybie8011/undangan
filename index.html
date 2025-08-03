@@ -15,41 +15,6 @@
       text-align: center;
     }
 
-    /* POPUP */
-    #popup {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .popup-content {
-      background: white;
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-      max-width: 90%;
-    }
-
-    .popup-content h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    .popup-content button {
-      padding: 10px 30px;
-      font-size: 1.2rem;
-      background: #5a4637;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-    }
-
     .container {
       max-width: 600px;
       margin: 50px auto;
@@ -135,6 +100,10 @@
       margin: 10px;
     }
 
+    .detail-item p {
+      margin: 5px 0;
+    }
+
     .kata-sambutan {
       margin: 20px 0 10px;
       font-style: italic;
@@ -197,18 +166,74 @@
       width: 180px;
       text-align: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .rekening-box img {
       width: 60px;
       height: auto;
       margin-bottom: 10px;
+      object-fit: contain;
+    }
+
+    .rekening-box p {
+      margin: 5px 0;
     }
 
     .footer {
       margin-top: 40px;
       font-size: 0.9rem;
       color: #7a7a7a;
+    }
+
+    /* POPUP & BLUR */
+    #popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background: #fffefb;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      max-width: 300px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .popup-content h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .popup-content p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    .popup-content button {
+      padding: 10px 20px;
+      background: #5a4637;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .popup-content button:hover {
+      background: #7a6249;
     }
   </style>
 </head>
@@ -218,43 +243,37 @@
     <div class="popup-content">
       <h1>Nico & Sabrina</h1>
       <p>Undangan Pernikahan</p>
-      <button onclick="openInvitation()">Buka Undangan</button>
+      <button onclick="startPage()">Buka Undangan</button>
     </div>
   </div>
 
-  <!-- Isi Undangan -->
+  <!-- AUDIO -->
+  <audio id="bgMusic" loop>
+    <source src="assets/lagu.mp3" type="audio/mpeg">
+    Browser Anda tidak mendukung pemutar audio.
+  </audio>
+
+  <!-- KONTEN UNDANGAN -->
   <div class="container">
     <div class="ribbon">21 November 2025</div>
+
     <h1>Nico & Sabrina</h1>
     <h2>Undangan Pernikahan</h2>
 
     <div class="countdown-title">Waktu Mundur Acara Pernikahan</div>
+
     <div class="countdown">
-      <div class="countdown-item">
-        <h4>Hari</h4><p id="days">0</p>
-      </div>
-      <div class="countdown-item">
-        <h4>Jam</h4><p id="hours">0</p>
-      </div>
-      <div class="countdown-item">
-        <h4>Menit</h4><p id="minutes">0</p>
-      </div>
-      <div class="countdown-item">
-        <h4>Detik</h4><p id="seconds">0</p>
-      </div>
+      <div class="countdown-item"><h4>Hari</h4><p id="days">0</p></div>
+      <div class="countdown-item"><h4>Jam</h4><p id="hours">0</p></div>
+      <div class="countdown-item"><h4>Menit</h4><p id="minutes">0</p></div>
+      <div class="countdown-item"><h4>Detik</h4><p id="seconds">0</p></div>
     </div>
 
     <img src="assets/pengantin.png" alt="Ilustrasi Pengantin" class="illustration">
 
     <div class="details">
-      <div class="detail-item">
-        <h3>Akad</h3>
-        <p>09.00 WIB</p>
-      </div>
-      <div class="detail-item">
-        <h3>Resepsi</h3>
-        <p>10.00 WIB</p>
-      </div>
+      <div class="detail-item"><h3>Akad</h3><p>09.00 WIB</p></div>
+      <div class="detail-item"><h3>Resepsi</h3><p>10.00 WIB</p></div>
     </div>
 
     <p class="kata-sambutan">
@@ -266,51 +285,19 @@
     <div class="arrow-down">↓</div>
 
     <div class="address">📍 Felfest UI, Depok, Jawa Barat</div>
-    <a class="map-link" href="https://maps.app.goo.gl/dzKyoJzsvC3ZGiVJ6" target="_blank">
-      Buka Lokasi di Google Maps
-    </a>
+    <a class="map-link" href="https://maps.app.goo.gl/dzKyoJzsvC3ZGiVJ6" target="_blank">Buka Lokasi di Google Maps</a>
 
     <div class="rekening-container">
-      <div class="rekening-box">
-        <img src="assets/bca.png" alt="Logo BCA">
-        <p><strong>Bank BCA</strong></p>
-        <p>1234567890</p>
-        <p>a.n Nico</p>
-      </div>
-      <div class="rekening-box">
-        <img src="assets/gopay.png" alt="Logo GoPay">
-        <p><strong>GoPay</strong></p>
-        <p>0812-3456-7890</p>
-        <p>a.n Nico</p>
-      </div>
-      <div class="rekening-box">
-        <img src="assets/ovo.png" alt="Logo OVO">
-        <p><strong>OVO</strong></p>
-        <p>0812-3456-7890</p>
-        <p>a.n Nico</p>
-      </div>
+      <div class="rekening-box"><img src="assets/bca.png"><p><strong>Bank BCA</strong></p><p>1234567890</p><p>a.n Nico</p></div>
+      <div class="rekening-box"><img src="assets/gopay.png"><p><strong>GoPay</strong></p><p>0812-3456-7890</p><p>a.n Nico</p></div>
+      <div class="rekening-box"><img src="assets/ovo.png"><p><strong>OVO</strong></p><p>0812-3456-7890</p><p>a.n Nico</p></div>
     </div>
 
-    <div class="footer">
-      Terima kasih atas doa & restu Anda.
-    </div>
+    <div class="footer">Terima kasih atas doa & restu Anda.</div>
   </div>
 
-  <!-- AUDIO -->
-  <audio id="bgMusic" loop>
-    <source src="assets/lagu.mp3" type="audio/mpeg">
-    Browser Anda tidak mendukung audio.
-  </audio>
-
-  <!-- SCRIPT -->
+  <!-- SCRIPT COUNTDOWN & POPUP -->
   <script>
-    function openInvitation() {
-      document.getElementById("popup").style.display = "none";
-      const audio = document.getElementById("bgMusic");
-      audio.play().catch(err => console.log("Autoplay gagal:", err));
-    }
-
-    // Countdown
     const weddingDate = new Date("2025-11-21T09:00:00").getTime();
     const daysEl = document.getElementById("days");
     const hoursEl = document.getElementById("hours");
@@ -332,9 +319,21 @@
       secondsEl.innerText = seconds;
 
       if (distance < 0) {
-        daysEl.innerText = hoursEl.innerText = minutesEl.innerText = secondsEl.innerText = "0";
+        clearInterval(interval);
+        daysEl.innerText = "0";
+        hoursEl.innerText = "0";
+        minutesEl.innerText = "0";
+        secondsEl.innerText = "0";
       }
     }, 1000);
+
+    function startPage() {
+      document.getElementById("popup").style.display = "none";
+      const audio = document.getElementById("bgMusic");
+      audio.play().catch(e => {
+        console.log("Autoplay gagal: " + e);
+      });
+    }
   </script>
 </body>
 </html>
