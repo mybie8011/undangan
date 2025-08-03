@@ -15,6 +15,41 @@
       text-align: center;
     }
 
+    /* POPUP */
+    #popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      max-width: 90%;
+    }
+
+    .popup-content h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .popup-content button {
+      padding: 10px 30px;
+      font-size: 1.2rem;
+      background: #5a4637;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+
     .container {
       max-width: 600px;
       margin: 50px auto;
@@ -100,10 +135,6 @@
       margin: 10px;
     }
 
-    .detail-item p {
-      margin: 5px 0;
-    }
-
     .kata-sambutan {
       margin: 20px 0 10px;
       font-style: italic;
@@ -166,20 +197,12 @@
       width: 180px;
       text-align: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     .rekening-box img {
       width: 60px;
       height: auto;
       margin-bottom: 10px;
-      object-fit: contain;
-    }
-
-    .rekening-box p {
-      margin: 5px 0;
     }
 
     .footer {
@@ -190,30 +213,34 @@
   </style>
 </head>
 <body>
+  <!-- POPUP -->
+  <div id="popup">
+    <div class="popup-content">
+      <h1>Nico & Sabrina</h1>
+      <p>Undangan Pernikahan</p>
+      <button onclick="openInvitation()">Buka Undangan</button>
+    </div>
+  </div>
+
+  <!-- Isi Undangan -->
   <div class="container">
     <div class="ribbon">21 November 2025</div>
-
     <h1>Nico & Sabrina</h1>
     <h2>Undangan Pernikahan</h2>
 
     <div class="countdown-title">Waktu Mundur Acara Pernikahan</div>
-
     <div class="countdown">
       <div class="countdown-item">
-        <h4>Hari</h4>
-        <p id="days">0</p>
+        <h4>Hari</h4><p id="days">0</p>
       </div>
       <div class="countdown-item">
-        <h4>Jam</h4>
-        <p id="hours">0</p>
+        <h4>Jam</h4><p id="hours">0</p>
       </div>
       <div class="countdown-item">
-        <h4>Menit</h4>
-        <p id="minutes">0</p>
+        <h4>Menit</h4><p id="minutes">0</p>
       </div>
       <div class="countdown-item">
-        <h4>Detik</h4>
-        <p id="seconds">0</p>
+        <h4>Detik</h4><p id="seconds">0</p>
       </div>
     </div>
 
@@ -238,9 +265,7 @@
 
     <div class="arrow-down">↓</div>
 
-    <div class="address">
-      📍 Felfest UI, Depok, Jawa Barat
-    </div>
+    <div class="address">📍 Felfest UI, Depok, Jawa Barat</div>
     <a class="map-link" href="https://maps.app.goo.gl/dzKyoJzsvC3ZGiVJ6" target="_blank">
       Buka Lokasi di Google Maps
     </a>
@@ -271,21 +296,28 @@
     </div>
   </div>
 
-  <!-- Audio Background -->
+  <!-- AUDIO -->
   <audio id="bgMusic" loop>
     <source src="assets/lagu.mp3" type="audio/mpeg">
-    Browser Anda tidak mendukung pemutar audio.
+    Browser Anda tidak mendukung audio.
   </audio>
 
-  <!-- Countdown Script -->
+  <!-- SCRIPT -->
   <script>
+    function openInvitation() {
+      document.getElementById("popup").style.display = "none";
+      const audio = document.getElementById("bgMusic");
+      audio.play().catch(err => console.log("Autoplay gagal:", err));
+    }
+
+    // Countdown
     const weddingDate = new Date("2025-11-21T09:00:00").getTime();
     const daysEl = document.getElementById("days");
     const hoursEl = document.getElementById("hours");
     const minutesEl = document.getElementById("minutes");
     const secondsEl = document.getElementById("seconds");
 
-    const interval = setInterval(() => {
+    setInterval(() => {
       const now = new Date().getTime();
       const distance = weddingDate - now;
 
@@ -300,34 +332,9 @@
       secondsEl.innerText = seconds;
 
       if (distance < 0) {
-        clearInterval(interval);
-        daysEl.innerText = "0";
-        hoursEl.innerText = "0";
-        minutesEl.innerText = "0";
-        secondsEl.innerText = "0";
+        daysEl.innerText = hoursEl.innerText = minutesEl.innerText = secondsEl.innerText = "0";
       }
     }, 1000);
-  </script>
-
-  <!-- Autoplay Music on First Touch or Click -->
-  <script>
-    const audio = document.getElementById('bgMusic');
-    let isPlaying = false;
-
-    function startAudio() {
-      if (!isPlaying) {
-        audio.play().then(() => {
-          isPlaying = true;
-          window.removeEventListener('touchstart', startAudio);
-          window.removeEventListener('click', startAudio);
-        }).catch((err) => {
-          console.log("Autoplay gagal:", err);
-        });
-      }
-    }
-
-    window.addEventListener('touchstart', startAudio);
-    window.addEventListener('click', startAudio);
   </script>
 </body>
 </html>
