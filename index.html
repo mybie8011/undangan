@@ -196,10 +196,8 @@
     <h1>Nico & Sabrina</h1>
     <h2>Undangan Pernikahan</h2>
 
-    <!-- Countdown Title -->
     <div class="countdown-title">Waktu Mundur Acara Pernikahan</div>
 
-    <!-- Countdown -->
     <div class="countdown">
       <div class="countdown-item">
         <h4>Hari</h4>
@@ -219,7 +217,6 @@
       </div>
     </div>
 
-    <!-- Ilustrasi Pengantin -->
     <img src="assets/pengantin.png" alt="Ilustrasi Pengantin" class="illustration">
 
     <div class="details">
@@ -233,17 +230,14 @@
       </div>
     </div>
 
-    <!-- Kata sambutan -->
     <p class="kata-sambutan">
       Dengan segala kerendahan hati dan penuh rasa syukur atas rahmat Allah SWT,<br/>
       kami memohon doa restu agar pernikahan kami diberkahi, diridhai, dan menjadi<br/>
       keluarga sakinah, mawaddah, wa rahmah.
     </p>
 
-    <!-- Panah Elegan -->
     <div class="arrow-down">↓</div>
 
-    <!-- Lokasi -->
     <div class="address">
       📍 Felfest UI, Depok, Jawa Barat
     </div>
@@ -251,7 +245,6 @@
       Buka Lokasi di Google Maps
     </a>
 
-    <!-- Rekening & E-Wallet -->
     <div class="rekening-container">
       <div class="rekening-box">
         <img src="assets/bca.png" alt="Logo BCA">
@@ -279,13 +272,13 @@
   </div>
 
   <!-- Audio Background -->
-  <audio autoplay loop>
+  <audio id="bgm" loop>
     <source src="assets/lagu.mp3" type="audio/mpeg">
     Browser Anda tidak mendukung pemutar audio.
   </audio>
 
-  <!-- Countdown Script -->
   <script>
+    // Countdown script
     const weddingDate = new Date("2025-11-21T09:00:00").getTime();
 
     const daysEl = document.getElementById("days");
@@ -315,6 +308,14 @@
         secondsEl.innerText = "0";
       }
     }, 1000);
+
+    // Audio play on first click anywhere
+    const audio = document.getElementById("bgm");
+    document.addEventListener("click", () => {
+      audio.play().catch(e => {
+        console.log("Autoplay gagal:", e);
+      });
+    }, { once: true });
   </script>
 </body>
 </html>
