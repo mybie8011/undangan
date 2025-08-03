@@ -277,8 +277,8 @@
     Browser Anda tidak mendukung pemutar audio.
   </audio>
 
+  <!-- Countdown Script -->
   <script>
-    // Countdown
     const weddingDate = new Date("2025-11-21T09:00:00").getTime();
     const daysEl = document.getElementById("days");
     const hoursEl = document.getElementById("hours");
@@ -307,8 +307,10 @@
         secondsEl.innerText = "0";
       }
     }, 1000);
+  </script>
 
-    // Audio autoplay saat klik atau scroll
+  <!-- Autoplay Music on First Touch or Click -->
+  <script>
     const audio = document.getElementById('bgMusic');
     let isPlaying = false;
 
@@ -316,16 +318,16 @@
       if (!isPlaying) {
         audio.play().then(() => {
           isPlaying = true;
+          window.removeEventListener('touchstart', startAudio);
           window.removeEventListener('click', startAudio);
-          window.removeEventListener('scroll', startAudio);
         }).catch((err) => {
-          console.log("Gagal autoplay:", err);
+          console.log("Autoplay gagal:", err);
         });
       }
     }
 
+    window.addEventListener('touchstart', startAudio);
     window.addEventListener('click', startAudio);
-    window.addEventListener('scroll', startAudio);
   </script>
 </body>
 </html>
